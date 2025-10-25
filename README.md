@@ -154,12 +154,9 @@ This application handles sensitive authentication data. Please follow these secu
 
 ```yaml
 dependencies:
-  flutter:
-    sdk: flutter
-  otp: ^3.0.0                    # TOTP generation
-  qr_code_scanner: ^1.0.0       # QR scanning
-  flutter_secure_storage: ^9.0.0 # Secure storage
-  provider: ^6.0.0               # State management
+  otp                       # TOTP generation
+  mobile_scanner            # QR scanning
+  flutter_secure_storage    # Secure storage
 ```
 
 ---
@@ -169,13 +166,9 @@ dependencies:
 ### Planned Features
 
 - [ ] Biometric authentication lock
-- [ ] Cloud backup (encrypted)
 - [ ] Multiple account folders/categories
 - [ ] Search functionality
-- [ ] Export/Import encrypted backups
 - [ ] Widget support for quick access
-- [ ] Wear OS / Apple Watch support
-- [ ] Steam Guard compatibility
 
 ---
 
