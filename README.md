@@ -98,10 +98,8 @@ flutter build ios --release
 
 ### Managing Accounts
 
-- **View Code**: Tap on any account to see the full code
-- **Copy Code**: Long-press to copy to clipboard
-- **Edit Account**: Swipe left and tap edit icon
-- **Delete Account**: Swipe left and tap delete icon
+- **Copy Code**: Press to copy to clipboard
+- **Delete Account**: Long-press to delete
 
 ### Code Generation
 
