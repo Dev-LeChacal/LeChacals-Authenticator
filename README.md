@@ -37,7 +37,6 @@ LeChacal's Authenticator is a custom-built two-factor authentication (2FA) appli
 - 📷 **QR Code Scanning** - Quick setup by scanning QR codes from services
 - 🎯 **Universal Compatibility** - Works with any service supporting TOTP (Google, GitHub, Discord, etc.)
 - 🌙 **Dark Mode Support** - Easy on the eyes in any lighting condition
-- 🔄 **Backup & Restore** - Export and import your accounts securely
 
 ---
 
