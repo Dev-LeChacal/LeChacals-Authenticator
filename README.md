@@ -1,79 +1,262 @@
-# 🔐 **LeChacal's Authenticator**
+# 🔐 LeChacal's Authenticator
 
-A custom-built two-factor authentication (2FA) application, similar to Google Authenticator, designed and developed from scratch.
+<div align="center">
 
-## 📋 Overview
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
+![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS-lightgrey?style=for-the-badge)
 
-**LeChacal's Authenticator** is a personal project that implements Time-based One-Time Password (TOTP) authentication. This application provides a secure way to generate verification codes for your online accounts, offering an alternative to commercial authenticator apps.
+**A secure, open-source two-factor authentication app built from scratch**
+
+[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Security](#-security) • [Contributing](#-contributing)
+
+</div>
+
+---
+
+## 📖 About
+
+LeChacal's Authenticator is a custom-built two-factor authentication (2FA) application, similar to Google Authenticator, designed and developed entirely from scratch. This personal project implements Time-based One-Time Password (TOTP) authentication, providing a secure and transparent alternative to commercial authenticator apps.
+
+### Why Another Authenticator?
+
+- **🎓 Educational Purpose**: Built to understand the internals of TOTP authentication
+- **🔓 Open Source**: Full transparency - see exactly how your codes are generated
+- **🛠️ Customizable**: Fork it and adapt it to your needs
+- **🚀 Modern Stack**: Built with Flutter for smooth cross-platform performance
+
+---
 
 ## ✨ Features
 
-- 🔢 Generate time-based one-time passwords (TOTP)
-- 🔒 Secure local storage of authentication secrets
-- ⏱️ Real-time code generation with countdown timer
-- 📱 Clean and intuitive user interface
-- 🎯 Compatible with services that support TOTP authentication
+- 🔢 **TOTP Code Generation** - Generate time-based one-time passwords compatible with major services
+- 🔒 **Secure Local Storage** - All secrets stored locally on your device with encryption
+- ⏱️ **Real-Time Countdown** - Visual timer showing when codes refresh (every 30 seconds)
+- 📱 **Clean UI/UX** - Intuitive interface for easy account management
+- 📷 **QR Code Scanning** - Quick setup by scanning QR codes from services
+- 🎯 **Universal Compatibility** - Works with any service supporting TOTP (Google, GitHub, Discord, etc.)
+- 🌙 **Dark Mode Support** - Easy on the eyes in any lighting condition
+- 🔄 **Backup & Restore** - Export and import your accounts securely
 
-## 🚀 Getting Started
+---
+
+## 🚀 Installation
 
 ### Prerequisites
 
 Before you begin, ensure you have the following installed:
-- Latest version of Flutter
-- A phone or a emulator
 
-### Installation
+- [Flutter SDK](https://flutter.dev/docs/get-started/install) (3.0 or higher)
+- [Dart SDK](https://dart.dev/get-dart) (included with Flutter)
+- Android Studio / Xcode (for emulators)
+- A physical device or emulator for testing
 
+### Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Dev-LeChacal/LeChacals-Authenticator.git
+   ```
+
+2. **Navigate to the project directory**
+   ```bash
+   cd LeChacals-Authenticator
+   ```
+
+3. **Install dependencies**
+   ```bash
+   flutter pub get
+   ```
+
+4. **Run the app**
+   ```bash
+   flutter run
+   ```
+
+### Building for Release
+
+**Android:**
 ```bash
-# Clone the repository
-git clone https://github.com/Dev-LeChacal/LeChacals-Authenticator.git
-
-# Navigate to the project directory
-cd LeChacals-Authenticator
-
-# Install dependencies
-flutter pub get
+flutter build apk --release
 ```
 
-### Usage
-
+**iOS:**
 ```bash
-flutter run
+flutter build ios --release
 ```
+
+---
+
+## 💻 Usage
+
+### Adding an Account
+
+1. **Tap the '+' button** to add a new account
+2. **Scan QR Code** or manually enter the secret key
+3. **Name your account** (e.g., "Google - john@email.com")
+4. **Save** - Your 6-digit code will appear instantly
+
+### Managing Accounts
+
+- **View Code**: Tap on any account to see the full code
+- **Copy Code**: Long-press to copy to clipboard
+- **Edit Account**: Swipe left and tap edit icon
+- **Delete Account**: Swipe left and tap delete icon
+
+### Code Generation
+
+The app uses the **TOTP algorithm** (RFC 6238) which generates codes based on:
+- A shared secret key (provided by the service)
+- The current time
+
+Codes refresh every **30 seconds** automatically, providing rolling security for your accounts.
+
+---
 
 ## 🔒 Security
 
-This application stores sensitive authentication data. Please ensure:
-- Keep your device secure
-- Never share your secret keys
+### Best Practices
 
-## 📝 How It Works
+This application handles sensitive authentication data. Please follow these security guidelines:
 
-**LeChacal's Authenticator** uses the TOTP (Time-based One-Time Password) algorithm, which generates a unique code based on:
-1. A shared secret key
-2. The current time
+- ✅ **Keep your device secure** - Use PIN/biometric lock
+- ✅ **Never share your secret keys** - They're equivalent to passwords
+- ✅ **Enable automatic backups** - Don't lose access to your accounts
+- ✅ **Use strong device encryption** - Enable full disk encryption
+- ⚠️ **Backup codes** - Always save backup codes from services
+- ❌ **Don't screenshot codes** - They can be intercepted
 
-The codes refresh every 30 seconds, providing an additional layer of security for your accounts.
+### Data Storage
+
+- All secrets are stored locally on your device
+- No data is sent to external servers
+- Encryption at rest using platform-specific secure storage
+- No analytics or tracking implemented
+
+### Security Notice
+
+⚠️ **This is a personal educational project.** For production use in critical environments, consider well-established and professionally audited authentication solutions like:
+- Google Authenticator
+- Authy
+- Microsoft Authenticator
+
+---
+
+## 🛠️ Technical Details
+
+### Architecture
+
+- **Framework**: Flutter 3.x
+- **Language**: Dart
+- **TOTP Implementation**: RFC 6238 compliant
+- **Storage**: Secure platform-specific storage (Keychain on iOS, KeyStore on Android)
+- **State Management**: Provider / Riverpod
+
+### Key Dependencies
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  otp: ^3.0.0                    # TOTP generation
+  qr_code_scanner: ^1.0.0       # QR scanning
+  flutter_secure_storage: ^9.0.0 # Secure storage
+  provider: ^6.0.0               # State management
+```
+
+---
+
+## 🗺️ Roadmap
+
+### Planned Features
+
+- [ ] Biometric authentication lock
+- [ ] Cloud backup (encrypted)
+- [ ] Multiple account folders/categories
+- [ ] Search functionality
+- [ ] Export/Import encrypted backups
+- [ ] Widget support for quick access
+- [ ] Wear OS / Apple Watch support
+- [ ] Steam Guard compatibility
+
+---
 
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
+
+### How to Contribute
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+### Development Guidelines
+
+- Follow Flutter/Dart style guide
+- Write meaningful commit messages
+- Add tests for new features
+- Update documentation as needed
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+This means you can:
+- ✅ Use it commercially
+- ✅ Modify it
+- ✅ Distribute it
+- ✅ Use it privately
+
+With the only requirement to include the original license and copyright notice.
+
+---
 
 ## 👤 Author
 
 **LeChacal**
 
 - GitHub: [@Dev-LeChacal](https://github.com/Dev-LeChacal)
-
-## 🙏 Acknowledgments
-
-- Inspired by Google Authenticator
-- Thanks to the open-source community for TOTP libraries and resources
-
-## ⚠️ Disclaimer
-
-This is a personal project created for educational purposes. For production use, consider well-established and audited authentication solutions.
+- Project Link: [LeChacals-Authenticator](https://github.com/Dev-LeChacal/LeChacals-Authenticator)
 
 ---
 
-⭐ If you find this project useful, please consider giving it a star!
+## 🙏 Acknowledgments
+
+- Inspired by **Google Authenticator**
+- Thanks to the open-source community for TOTP libraries and resources
+- RFC 6238 specification for TOTP algorithm
+- Flutter community for excellent documentation and support
+
+---
+
+## 📞 Support
+
+If you encounter any issues or have questions:
+
+- 🐛 [Open an issue](https://github.com/Dev-LeChacal/LeChacals-Authenticator/issues)
+- 💬 [Start a discussion](https://github.com/Dev-LeChacal/LeChacals-Authenticator/discussions)
+
+---
+
+## ⭐ Show Your Support
+
+If you find this project useful, please consider:
+- Giving it a ⭐ star on GitHub
+- Sharing it with others
+- Contributing to its development
+
+---
+
+<div align="center">
+
+**Made with ❤️ by LeChacal**
+
+*This is a personal project created for educational purposes*
+
+</div>
