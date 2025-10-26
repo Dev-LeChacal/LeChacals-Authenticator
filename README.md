@@ -165,10 +165,10 @@ dependencies:
 
 ### Planned Features
 
-- [ ] Biometric authentication lock
-- [ ] Multiple account folders/categories
-- [ ] Search functionality
-- [ ] Widget support for quick access
+- Biometric authentication lock
+- Multiple account folders/categories
+- Search functionality
+- Widget support for quick access
 
 ---
 
