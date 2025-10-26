@@ -1,6 +1,6 @@
 # 🔐 LeChacal's Authenticator
 
-A secure, open-source two-factor authentication app
+I'm bored so I made this app.
 
 ## 📸 Screenshots
 
