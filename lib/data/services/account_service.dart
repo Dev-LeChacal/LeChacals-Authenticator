@@ -3,9 +3,14 @@ import "package:flutter_secure_storage/flutter_secure_storage.dart";
 import "package:lechacals_authenticator/data/models/account.dart";
 
 class AccountService {
-  final FlutterSecureStorage _storage = const FlutterSecureStorage(
-    aOptions: AndroidOptions(encryptedSharedPreferences: true),
+  static const _storage = FlutterSecureStorage(
+    aOptions: AndroidOptions(
+      encryptedSharedPreferences: true,
+      resetOnError: true,
+      storageCipherAlgorithm: StorageCipherAlgorithm.AES_GCM_NoPadding,
+    ),
   );
+
   static const String _accountsKey = "accounts";
 
   Future<List<Account>> loadAccounts() async {
