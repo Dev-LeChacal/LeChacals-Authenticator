@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             icon: Icons.keyboard,
             label: "Manual Entry",
-            color: Colors.blue,
+            color: Colors.cyan,
           ),
         ),
 
@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             icon: Icons.qr_code_scanner,
             label: "Scan QR Code",
-            color: Colors.blue,
+            color: Colors.orange,
           ),
         ),
       ],
@@ -323,8 +323,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
         return Dismissible(
           key: ValueKey(account.id),
+
+          // direction and dismiss
           direction: isEditing ? DismissDirection.startToEnd : DismissDirection.none,
-          dismissThresholds: const {DismissDirection.endToStart: 0.3},
 
           // confirm dismiss
           confirmDismiss: (direction) async {
@@ -333,9 +334,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
           // background
           background: Container(
-            color: Colors.red,
+            // alignment
             alignment: Alignment.centerLeft,
+
+            // decoration
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(8),
+            ),
+
+            // padding and margin
             padding: const EdgeInsets.only(left: 20),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+
+            // child
             child: const Icon(Icons.delete, color: Colors.white, size: 26),
           ),
 
