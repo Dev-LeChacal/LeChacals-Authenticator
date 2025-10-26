@@ -2,7 +2,7 @@
 
 An Authenticator app like [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2) but made by me.
 
-> Note: This project only use ai for big errors that I can't fix (just explain the error, zero code generated)
+> Note: This project only use ai for big errors that I can't fix (just explain the error, zero code generated). Just remember I'm not a pro.
 
 ## 📸 Screenshots
 
