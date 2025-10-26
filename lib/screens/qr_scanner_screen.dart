@@ -13,6 +13,15 @@ class QRScannerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    const scanAreaSize = 200.0;
+
+    final scanWindow = Rect.fromCenter(
+      center: Offset(size.width / 2, size.height / 2),
+      width: scanAreaSize,
+      height: scanAreaSize,
+    );
+
     return Scaffold(
       appBar: CustomAppBar(
         title: "Scan QR Code",
@@ -23,7 +32,29 @@ class QRScannerScreen extends StatelessWidget {
           size: 50,
         ),
       ),
-      body: MobileScanner(onDetect: _handleQRCodeDetection),
+      body: Stack(
+        children: [
+          MobileScanner(
+            onDetect: _handleQRCodeDetection,
+            tapToFocus: true,
+            scanWindow: scanWindow,
+          ),
+          _buildScannerOverlay(scanAreaSize),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildScannerOverlay(double size) {
+    return Center(
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.white, width: 3),
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
     );
   }
 

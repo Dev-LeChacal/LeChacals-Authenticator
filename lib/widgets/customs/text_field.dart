@@ -40,7 +40,7 @@ class CustomTextField extends StatelessWidget {
             focusedBorder: InputBorder.none,
 
             // padding
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
 
             // hint
             hintText: hint,

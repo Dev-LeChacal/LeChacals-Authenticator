@@ -54,10 +54,11 @@ class _ManualEntryScreenState extends State<ManualEntryScreen> {
         ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-
         // children
         children: [
+          // spacing
+          const SizedBox(height: 32),
+
           // name
           CustomTextField(
             controller: nameController,
@@ -74,9 +75,6 @@ class _ManualEntryScreenState extends State<ManualEntryScreen> {
             hint: "Enter the secret key",
             capitalization: TextCapitalization.characters,
           ),
-
-          // spacing
-          const SizedBox(height: 64),
         ],
       ),
 

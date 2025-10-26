@@ -245,12 +245,14 @@ class _HomeScreenState extends State<HomeScreen> {
       itemCount: accounts.length,
       itemBuilder: (context, index) {
         final account = accounts[index];
+        final code = OTPService.generateTOTP(account.secret);
+
         return AccountListItem(
           key: ValueKey(account.id),
           account: account,
-          code: OTPService.generateTOTP(account.secret),
+          code: code,
           remainingSeconds: remainingSeconds,
-          onTap: () => _copyCode(OTPService.generateTOTP(account.secret)),
+          onTap: () => _copyCode(code),
           onDoubleTap: () => _deleteAccountDialog(account),
         );
       },
