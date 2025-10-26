@@ -59,6 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showAddOptions() {
+    VibrationService.light();
+
     CustomModalBottomSheet.show(
       context: context,
       children: [
@@ -66,8 +68,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ActionButton(
           params: ActionButtonParams(
             onPressed: () {
-              Navigator.pop(context);
-              _showManualEntryDialog();
+              VibrationService.light();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ManualEntryScreen(onAdd: _addAccount),
+                ),
+              );
             },
             icon: Icons.keyboard,
             label: "Manual Entry",
@@ -79,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ActionButton(
           params: ActionButtonParams(
             onPressed: () {
+              VibrationService.light();
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -95,19 +103,16 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _showManualEntryDialog() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ManualEntryScreen(onAdd: _addAccount)),
-    );
-  }
-
   void _addAccount(Account account) {
     // add account
     setState(() {
       // check for duplicates based on secret
       if (!accounts.any((acc) => acc.secret == account.secret)) {
+        // add
         accounts.add(account);
+
+        // success vibration
+        VibrationService.successVibration();
       }
     });
 
@@ -119,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _deleteAccountDialog(Account account) {
-    VibrationService.deleteDialogVibration();
+    VibrationService.heavy();
 
     showDialog(
       context: context,
@@ -162,7 +167,10 @@ class _HomeScreenState extends State<HomeScreen> {
               // cancel button
               ActionButton(
                 params: ActionButtonParams(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () {
+                    VibrationService.cancelVibration();
+                    Navigator.pop(context);
+                  },
                   icon: Icons.close,
                   color: Colors.green,
                   size: 50,
@@ -176,10 +184,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ActionButton(
                 params: ActionButtonParams(
                   onPressed: () {
+                    VibrationService.deleteVibration();
+
+                    // delete account
                     setState(() {
                       accounts.removeWhere((acc) => acc.id == account.id);
                     });
+
+                    // save
                     _saveAccounts();
+
+                    // close dialog
                     Navigator.pop(context);
                   },
                   icon: Icons.delete,
@@ -196,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _copyCode(String code) {
     Clipboard.setData(ClipboardData(text: code));
-    VibrationService.copyVibration();
+    VibrationService.light();
   }
 
   @override
@@ -222,8 +237,8 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.symmetric(vertical: 8),
 
       // haptic feedback
-      onReorderStart: (index) => VibrationService.reorderVibration(),
-      onReorderEnd: (index) => VibrationService.reorderVibration(),
+      onReorderStart: (index) => VibrationService.medium(),
+      onReorderEnd: (index) => VibrationService.medium(),
 
       // on reorder
       onReorder: (oldIndex, newIndex) {

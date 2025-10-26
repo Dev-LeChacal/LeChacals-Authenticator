@@ -30,7 +30,7 @@ class AccountListItem extends StatelessWidget {
         onDoubleTap: onDoubleTap,
         borderRadius: BorderRadius.circular(8),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
           child: Row(children: [Expanded(child: _buildAccountInfo(formattedCode))]),
         ),
       ),
