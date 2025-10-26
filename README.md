@@ -1,9 +1,12 @@
 # 🔐 LeChacal's Authenticator
 
-#### I'm bored so I made this app.
-#### Don't use AI that will kill you skills.
+An Authenticator app like [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2) but made by me.
+
+> Note: This project only use ai for big errors that I can't fix (just explain the error, zero code generated)
 
 ## 📸 Screenshots
+
+Here some screenshots:
 
 <p align="center">
   <img src="screenshots/home_screen.png" alt="Home Screen" width="200"/>
