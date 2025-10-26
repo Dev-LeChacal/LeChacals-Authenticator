@@ -21,7 +21,7 @@ class CustomTextField extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
-        // deuxieme container sinon ca bug avec le TextField
+        // decoration
         decoration: BoxDecoration(
           color: color.withAlpha(33),
           borderRadius: BorderRadius.circular(12),

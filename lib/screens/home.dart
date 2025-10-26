@@ -24,6 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int remainingSeconds = 30;
   Timer? timer;
 
+  bool isEditing = false;
+
   @override
   void initState() {
     super.initState();
@@ -203,19 +205,85 @@ class _HomeScreenState extends State<HomeScreen> {
     VibrationService.light();
   }
 
+  void _editAccount(Account account) {
+    VibrationService.light();
+
+    Navigator.pushNamed(
+      context,
+      Routes.editAccount,
+      arguments: {"account": account, "onEndEdit": _onEndEdit},
+    );
+  }
+
+  void _onEndEdit(Account editedAccount) {
+    // update account
+    setState(() {
+      final index = accounts.indexWhere((acc) => acc.id == editedAccount.id);
+      if (index != -1) {
+        accounts[index] = editedAccount;
+      }
+    });
+
+    // save
+    _saveAccounts();
+
+    // finish editing
+    isEditing = false;
+
+    // return to home screen
+    Navigator.popUntil(context, (route) => route.isFirst);
+
+    VibrationService.successVibration();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(title: "LeChacal's Authenticator"),
       body: accounts.isEmpty ? _buildEmptyState() : _buildListView(),
 
-      // floating action button
-      floatingActionButton: ActionButton(
-        params: ActionButtonParams(
-          onPressed: _showAddOptions,
-          icon: Icons.add,
-          color: Colors.blue,
-        ),
+      // floating action buttons
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        spacing: 10,
+
+        // buttons
+        children: [
+          // edit button
+          ActionButton(
+            params: ActionButtonParams(
+              onPressed: () {
+                // toggle edit mode
+                setState(() {
+                  isEditing = !isEditing;
+                });
+
+                // save if exiting edit mode
+                if (!isEditing) {
+                  _saveAccounts();
+                }
+
+                VibrationService.light();
+              },
+
+              // icon and color
+              icon: isEditing ? Icons.check : Icons.edit,
+              color: isEditing ? Colors.green : Colors.blue,
+            ),
+          ),
+
+          // add button
+          ActionButton(
+            params: ActionButtonParams(
+              // block adding in edit mode
+              onPressed: isEditing ? () {} : _showAddOptions,
+
+              // icon and color
+              icon: isEditing ? Icons.block : Icons.add,
+              color: isEditing ? Colors.red : Colors.green,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -231,6 +299,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // on reorder
       onReorder: (oldIndex, newIndex) {
+        // update list
         setState(() {
           if (newIndex > oldIndex) {
             newIndex -= 1;
@@ -238,6 +307,8 @@ class _HomeScreenState extends State<HomeScreen> {
           final account = accounts.removeAt(oldIndex);
           accounts.insert(newIndex, account);
         });
+
+        // save
         _saveAccounts();
       },
 
@@ -252,8 +323,8 @@ class _HomeScreenState extends State<HomeScreen> {
           account: account,
           code: code,
           remainingSeconds: remainingSeconds,
-          onTap: () => _copyCode(code),
-          onDoubleTap: () => _deleteAccountDialog(account),
+          onTap: () => isEditing ? _editAccount(account) : _copyCode(code),
+          onDoubleTap: () => isEditing ? null : _deleteAccountDialog(account),
         );
       },
     );

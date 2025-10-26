@@ -17,7 +17,7 @@ class CustomButton extends StatelessWidget {
     const double buttonHeight = 50;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: GestureDetector(
         onTap: onTap,
         child: Container(
