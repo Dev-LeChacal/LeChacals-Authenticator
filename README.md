@@ -1,6 +1,6 @@
 # 🔐 LeChacal's Authenticator
 
-An Authenticator app like [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2) but made by me. \
+An Authenticator app like [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2) but made by [me](https://github.com/Dev-LeChacal). \
 You can do whatever you want with the code. \
 Just mention me if you use it in a big project.
 
