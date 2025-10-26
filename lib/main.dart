@@ -25,7 +25,6 @@ class AuthenticatorApp extends StatelessWidget {
       title: "LeChacal's Authenticator",
       debugShowCheckedModeBanner: false,
       theme: AppColors.theme,
-      home: const HomeScreen(),
       routes: {
         Routes.home: (context) => const HomeScreen(),
 
