@@ -1,5 +1,5 @@
 name: lechacals_authenticator
-description: "An authenticator app inspired by Google Authenticator and made by LeChacal."
+description: "A secure, open-source two-factor authentication app built from scratch"
 publish_to: 'none'
 version: 1.0.3+1
 
