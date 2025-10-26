@@ -1,6 +1,7 @@
 import "dart:async";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
+import "package:home_widget/home_widget.dart";
 import "package:lechacals_authenticator/data/models/account.dart";
 import "package:lechacals_authenticator/data/services/account_service.dart";
 import "package:lechacals_authenticator/data/services/otp_service.dart";
@@ -10,6 +11,16 @@ import "package:lechacals_authenticator/widgets/account_list_item.dart";
 import "package:lechacals_authenticator/widgets/customs/action_button.dart";
 import "package:lechacals_authenticator/widgets/customs/app_bar.dart";
 import "package:lechacals_authenticator/widgets/customs/modal_bottom_sheet.dart";
+
+const String appGroupId = "com.lechacals.authenticator";
+const String androidWidgetName = "LeChacalsAuthenticatorWidget";
+
+void updateWidget(Account account, String code) {
+  HomeWidget.saveWidgetData<String>("account_name", account.name);
+  HomeWidget.saveWidgetData<String>("account_code", code);
+
+  HomeWidget.updateWidget(androidName: androidWidgetName);
+}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,8 +40,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
     _loadAccounts();
     _startTimer();
+
+    HomeWidget.setAppGroupId(appGroupId);
+
+    if (accounts.firstOrNull != null) {
+      final account = accounts.first;
+      final code = OTPService.generateTOTP(account.secret);
+
+      updateWidget(account, code);
+    }
   }
 
   @override
