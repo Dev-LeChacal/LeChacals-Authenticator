@@ -240,6 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(title: "LeChacal's Authenticator"),
+      drawer: const DrawerButton(),
       body: accounts.isEmpty ? _buildEmptyState() : _buildListView(),
 
       // floating action buttons
