@@ -1,7 +1,7 @@
 # 🔐 LeChacal's Authenticator
 
-An Authenticator app like [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2) but made by me. /
-You can do whatever you want with the code. /
+An Authenticator app like [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2) but made by me. \
+You can do whatever you want with the code. \
 Just mention me if you use it in a big project.
 
 > Note: This project only use ai for big errors that I can't fix (just explain the error, zero code generated). Just remember I'm not a pro.
