@@ -1,6 +1,6 @@
 # 🔐 LeChacal's Authenticator
 
-<p align="center">I'm bored so I made this app.</p>
+<p align="center">## I'm bored so I made this app.</p>
 
 ## 📸 Screenshots
 
