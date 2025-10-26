@@ -4,8 +4,7 @@ import "package:flutter/services.dart";
 import "package:lechacals_authenticator/data/models/account.dart";
 import "package:lechacals_authenticator/data/services/account_service.dart";
 import "package:lechacals_authenticator/data/services/otp_service.dart";
-import "package:lechacals_authenticator/screens/manual_entry.dart";
-import "package:lechacals_authenticator/screens/qr_scanner_screen.dart";
+import "package:lechacals_authenticator/routes/routes.dart";
 import "package:lechacals_authenticator/utils/vibration_service.dart";
 import "package:lechacals_authenticator/widgets/account_list_item.dart";
 import "package:lechacals_authenticator/widgets/customs/action_button.dart";
@@ -69,12 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
           params: ActionButtonParams(
             onPressed: () {
               VibrationService.light();
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ManualEntryScreen(onAdd: _addAccount),
-                ),
-              );
+              Navigator.pushNamed(context, Routes.manualEntry, arguments: _addAccount);
             },
             icon: Icons.keyboard,
             label: "Manual Entry",
@@ -87,12 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
           params: ActionButtonParams(
             onPressed: () {
               VibrationService.light();
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => QRScannerScreen(onAdd: _addAccount),
-                ),
-              );
+              Navigator.pushNamed(context, Routes.qrScanner, arguments: _addAccount);
             },
             icon: Icons.qr_code_scanner,
             label: "Scan QR Code",

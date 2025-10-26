@@ -1,6 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
+import "package:lechacals_authenticator/data/models/account.dart";
+import "package:lechacals_authenticator/routes/routes.dart";
 import "package:lechacals_authenticator/screens/home.dart";
+import "package:lechacals_authenticator/screens/manual_entry.dart";
+import "package:lechacals_authenticator/screens/qr_scanner_screen.dart";
 import "package:lechacals_authenticator/themes/app_colors.dart";
 
 void main() {
@@ -22,6 +26,19 @@ class AuthenticatorApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppColors.theme,
       home: const HomeScreen(),
+      routes: {
+        Routes.home: (context) => const HomeScreen(),
+
+        Routes.manualEntry: (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Function(Account);
+          return ManualEntryScreen(onAdd: args);
+        },
+
+        Routes.qrScanner: (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Function(Account);
+          return QRScannerScreen(onAdd: args);
+        },
+      },
     );
   }
 }
