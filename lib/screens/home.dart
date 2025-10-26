@@ -117,7 +117,9 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.popUntil(context, (route) => route.isFirst);
   }
 
-  void _deleteAccount(Account account) {
+  void _deleteAccountDialog(Account account) {
+    _heavyImpact();
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -193,7 +195,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _copyCode(String code) {
     Clipboard.setData(ClipboardData(text: code));
+    _selectionClick();
   }
+
+  void _selectionClick() => HapticFeedback.selectionClick();
+  void _heavyImpact() => HapticFeedback.heavyImpact();
 
   @override
   Widget build(BuildContext context) {
@@ -213,13 +219,24 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildListView() {
-    return ListView.separated(
+    return ReorderableListView.builder(
       // padding
       padding: const EdgeInsets.symmetric(vertical: 8),
 
-      // separator
-      separatorBuilder: (context, index) {
-        return Divider(color: Colors.grey[300], height: 1);
+      // haptic feedback
+      onReorderStart: (index) => _selectionClick(),
+      onReorderEnd: (index) => _selectionClick(),
+
+      // on reorder
+      onReorder: (oldIndex, newIndex) {
+        setState(() {
+          if (newIndex > oldIndex) {
+            newIndex -= 1;
+          }
+          final account = accounts.removeAt(oldIndex);
+          accounts.insert(newIndex, account);
+        });
+        _saveAccounts();
       },
 
       // items
@@ -227,11 +244,12 @@ class _HomeScreenState extends State<HomeScreen> {
       itemBuilder: (context, index) {
         final account = accounts[index];
         return AccountListItem(
+          key: ValueKey(account.id),
           account: account,
           code: OTPService.generateTOTP(account.secret),
           remainingSeconds: remainingSeconds,
           onTap: () => _copyCode(OTPService.generateTOTP(account.secret)),
-          onLongPress: () => _deleteAccount(account),
+          onDoubleTap: () => _deleteAccountDialog(account),
         );
       },
     );

@@ -7,7 +7,7 @@ class AccountListItem extends StatelessWidget {
   final String code;
   final int remainingSeconds;
   final VoidCallback onTap;
-  final VoidCallback onLongPress;
+  final VoidCallback onDoubleTap;
 
   const AccountListItem({
     super.key,
@@ -15,28 +15,31 @@ class AccountListItem extends StatelessWidget {
     required this.code,
     required this.remainingSeconds,
     required this.onTap,
-    required this.onLongPress,
+    required this.onDoubleTap,
   });
 
   @override
   Widget build(BuildContext context) {
     final formattedCode = "${code.substring(0, 3)} ${code.substring(3)}";
 
-    return InkWell(
-      onTap: onTap,
-      onLongPress: onLongPress,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        child: Row(children: [Expanded(child: _buildAccountInfo(formattedCode))]),
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      elevation: 0,
+      child: InkWell(
+        onTap: onTap,
+        onDoubleTap: onDoubleTap,
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          child: Row(children: [Expanded(child: _buildAccountInfo(formattedCode))]),
+        ),
       ),
     );
   }
 
   Widget _buildAccountInfo(String formattedCode) {
     return Column(
-      // axis alignment
       crossAxisAlignment: CrossAxisAlignment.start,
-
       children: [
         // account name
         Text(
