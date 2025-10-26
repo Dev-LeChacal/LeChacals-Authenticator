@@ -1,5 +1,3 @@
-// ignore_for_file: unused_local_variable
-
 import "package:flutter/material.dart";
 import "package:lechacals_authenticator/data/models/account.dart";
 import "package:lechacals_authenticator/widgets/customs/action_button.dart";
@@ -72,9 +70,6 @@ class QRScannerScreen extends StatelessWidget {
 
       final secret = uri.queryParameters["secret"];
       final issuer = uri.queryParameters["issuer"];
-      final algorithm = uri.queryParameters["algorithm"] ?? "SHA1";
-      final digits = int.tryParse(uri.queryParameters["digits"] ?? "6") ?? 6;
-      final period = int.tryParse(uri.queryParameters["period"] ?? "30") ?? 30;
 
       final account = Account(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
