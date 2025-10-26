@@ -1,7 +1,7 @@
 # 🔐 LeChacal's Authenticator
 
-I'm bored so I made this app.
-Don't use AI that will kill you skills.
+#### I'm bored so I made this app.
+#### Don't use AI that will kill you skills.
 
 ## 📸 Screenshots
 
