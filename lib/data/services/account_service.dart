@@ -30,14 +30,4 @@ class AccountService {
     final jsonList = accounts.map((acc) => acc.toJson()).toList();
     await _storage.write(key: _accountsKey, value: json.encode(jsonList));
   }
-
-  Future<void> deleteAccount(String accountId, List<Account> accounts) async {
-    accounts.removeWhere((acc) => acc.id == accountId);
-    await saveAccounts(accounts);
-  }
-
-  Future<void> addAccount(Account account, List<Account> accounts) async {
-    accounts.add(account);
-    await saveAccounts(accounts);
-  }
 }

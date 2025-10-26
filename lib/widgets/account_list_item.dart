@@ -7,7 +7,6 @@ class AccountListItem extends StatelessWidget {
   final String code;
   final int remainingSeconds;
   final VoidCallback onTap;
-  final VoidCallback onDoubleTap;
 
   const AccountListItem({
     super.key,
@@ -15,7 +14,6 @@ class AccountListItem extends StatelessWidget {
     required this.code,
     required this.remainingSeconds,
     required this.onTap,
-    required this.onDoubleTap,
   });
 
   @override
@@ -27,7 +25,6 @@ class AccountListItem extends StatelessWidget {
       elevation: 0,
       child: InkWell(
         onTap: onTap,
-        onDoubleTap: onDoubleTap,
         borderRadius: BorderRadius.circular(8),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),

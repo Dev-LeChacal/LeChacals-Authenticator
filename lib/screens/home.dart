@@ -114,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.popUntil(context, (route) => route.isFirst);
   }
 
-  void _deleteAccountDialog(Account account) {
+  Future<bool?> _deleteAccountDialog(Account account) async {
     VibrationService.heavy();
 
     showDialog(
@@ -158,10 +158,13 @@ class _HomeScreenState extends State<HomeScreen> {
               // cancel button
               ActionButton(
                 params: ActionButtonParams(
+                  // onPressed
                   onPressed: () {
                     VibrationService.cancelVibration();
-                    Navigator.pop(context);
+                    Navigator.pop(context, false);
                   },
+
+                  // icon, color, size
                   icon: Icons.close,
                   color: Colors.green,
                   size: 50,
@@ -186,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     _saveAccounts();
 
                     // close dialog
-                    Navigator.pop(context);
+                    Navigator.pop(context, true);
                   },
                   icon: Icons.delete,
                   color: Colors.red,
@@ -198,6 +201,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+
+    return null;
   }
 
   void _copyCode(String code) {
@@ -240,7 +245,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(title: "LeChacal's Authenticator"),
-      drawer: const DrawerButton(),
       body: accounts.isEmpty ? _buildEmptyState() : _buildListView(),
 
       // floating action buttons
@@ -319,13 +323,32 @@ class _HomeScreenState extends State<HomeScreen> {
         final account = accounts[index];
         final code = OTPService.generateTOTP(account.secret);
 
-        return AccountListItem(
+        return Dismissible(
           key: ValueKey(account.id),
-          account: account,
-          code: code,
-          remainingSeconds: remainingSeconds,
-          onTap: () => isEditing ? _editAccount(account) : _copyCode(code),
-          onDoubleTap: () => isEditing ? null : _deleteAccountDialog(account),
+          direction: isEditing ? DismissDirection.startToEnd : DismissDirection.none,
+          dismissThresholds: const {DismissDirection.endToStart: 0.3},
+
+          // confirm dismiss
+          confirmDismiss: (direction) async {
+            return await _deleteAccountDialog(account);
+          },
+
+          // background
+          background: Container(
+            color: Colors.red,
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(left: 20),
+            child: const Icon(Icons.delete, color: Colors.white, size: 26),
+          ),
+
+          // item
+          child: AccountListItem(
+            key: ValueKey(account.id),
+            account: account,
+            code: code,
+            remainingSeconds: remainingSeconds,
+            onTap: () => isEditing ? _editAccount(account) : _copyCode(code),
+          ),
         );
       },
     );
