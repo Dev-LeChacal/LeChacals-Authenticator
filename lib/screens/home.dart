@@ -10,6 +10,7 @@ import "package:lechacals_authenticator/widgets/account_list_item.dart";
 import "package:lechacals_authenticator/widgets/customs/action_button.dart";
 import "package:lechacals_authenticator/widgets/customs/app_bar.dart";
 import "package:lechacals_authenticator/widgets/customs/modal_bottom_sheet.dart";
+import "package:vibration/vibration.dart";
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -118,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _deleteAccountDialog(Account account) {
-    _heavyImpact();
+    _deleteDialogVibration();
 
     showDialog(
       context: context,
@@ -195,11 +196,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _copyCode(String code) {
     Clipboard.setData(ClipboardData(text: code));
-    _selectionClick();
+    _copyVibration();
   }
 
-  void _selectionClick() => HapticFeedback.selectionClick();
-  void _heavyImpact() => HapticFeedback.heavyImpact();
+  void _copyVibration() => Vibration.vibrate(duration: 50, amplitude: 10);
+  void _reorderVibration() => Vibration.vibrate(duration: 100, amplitude: 50);
+  void _deleteDialogVibration() => Vibration.vibrate(duration: 100, amplitude: 100);
 
   @override
   Widget build(BuildContext context) {
@@ -224,8 +226,8 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.symmetric(vertical: 8),
 
       // haptic feedback
-      onReorderStart: (index) => _selectionClick(),
-      onReorderEnd: (index) => _selectionClick(),
+      onReorderStart: (index) => _reorderVibration(),
+      onReorderEnd: (index) => _reorderVibration(),
 
       // on reorder
       onReorder: (oldIndex, newIndex) {
