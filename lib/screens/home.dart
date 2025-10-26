@@ -120,17 +120,15 @@ class _HomeScreenState extends State<HomeScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        // padding
-        insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-
         // title
         title: const Center(child: Text("Delete Account")),
         titleTextStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
 
         // content
+        contentPadding: const EdgeInsets.symmetric(horizontal: 25, vertical: 30),
         content: Text.rich(
           // style
-          style: const TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 18),
 
           // spans
           TextSpan(
@@ -154,6 +152,9 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 10,
+
+            // children
             children: [
               // cancel button
               ActionButton(
@@ -167,12 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   // icon, color, size
                   icon: Icons.close,
                   color: Colors.green,
-                  size: 50,
                 ),
               ),
-
-              // spacing
-              const SizedBox(width: 16),
 
               // delete button
               ActionButton(
@@ -191,9 +188,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     // close dialog
                     Navigator.pop(context, true);
                   },
+
+                  // icon, color, size
                   icon: Icons.delete,
                   color: Colors.red,
-                  size: 50,
                 ),
               ),
             ],
