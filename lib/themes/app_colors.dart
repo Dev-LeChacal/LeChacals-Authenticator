@@ -12,9 +12,6 @@ class AppColors {
       seedColor: primaryColor,
     ),
 
-    // card theme
-    cardTheme: const CardThemeData(color: Color.fromARGB(255, 28, 32, 44)),
-
     // progress indicator theme
     progressIndicatorTheme: const ProgressIndicatorThemeData(color: primaryColor),
 

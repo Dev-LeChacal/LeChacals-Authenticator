@@ -39,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isEditing = false;
 
   final GlobalKey _globalKey = GlobalKey();
+  Timer? widgetUpdateTimer;
   String? imagePath;
 
   @override
@@ -54,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     timer?.cancel();
+    widgetUpdateTimer?.cancel();
     super.dispose();
   }
 
@@ -63,7 +65,38 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         remainingSeconds = OTPService.getRemainingSeconds();
       });
+
+      if (remainingSeconds == 30 && accounts.isNotEmpty) {
+        _updateWidgetWithCurrentAccount();
+      }
     });
+  }
+
+  Future<void> _updateWidgetWithCurrentAccount() async {
+    if (accounts.isEmpty) return;
+
+    final account = accounts.first;
+    final code = OTPService.generateTOTP(account.secret);
+
+    if (_globalKey.currentContext != null) {
+      var path = await HomeWidget.renderFlutterWidget(
+        AccountListItem(
+          account: account,
+          code: code,
+          remainingSeconds: remainingSeconds,
+          onTap: () {},
+        ),
+        key: "screenshot",
+        logicalSize: _globalKey.currentContext!.size!,
+        pixelRatio: MediaQuery.of(_globalKey.currentContext!).devicePixelRatio,
+      );
+
+      setState(() {
+        imagePath = path as String?;
+      });
+
+      _updateWidget(account, code, imagePath!);
+    }
   }
 
   Future<void> _loadAccounts() async {
@@ -270,47 +303,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
         // buttons
         children: [
-          // image button
-          ActionButton(
-            params: ActionButtonParams(
-              onPressed: () async {
-                final account = accounts.first;
-                final code = OTPService.generateTOTP(account.secret);
-
-                if (_globalKey.currentContext != null) {
-                  var path = await HomeWidget.renderFlutterWidget(
-                    // item
-                    AccountListItem(
-                      account: account,
-                      code: code,
-                      remainingSeconds: remainingSeconds,
-                      onTap: () {},
-                    ),
-
-                    // others
-                    key: "screenshot",
-                    logicalSize: _globalKey.currentContext!.size!,
-                    pixelRatio: MediaQuery.of(
-                      _globalKey.currentContext!,
-                    ).devicePixelRatio,
-                  );
-
-                  // set state
-                  setState(() {
-                    imagePath = path as String?;
-                  });
-                }
-
-                // update
-                _updateWidget(account, code, imagePath!);
-              },
-
-              // icon color
-              icon: Icons.image,
-              color: Colors.red,
-            ),
-          ),
-
           // edit button
           ActionButton(
             params: ActionButtonParams(

@@ -22,6 +22,7 @@ class AccountListItem extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      color: const Color.fromARGB(255, 28, 32, 44),
       elevation: 0,
       child: InkWell(
         onTap: onTap,
