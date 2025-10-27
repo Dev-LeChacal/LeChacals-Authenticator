@@ -2,23 +2,38 @@
     style="@style/Widget.Android.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.Android.AppWidgetContainer">
+    android:theme="@style/Theme.Android.AppWidgetContainer"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:padding="4dp" />
 
     <TextView
         android:id="@+id/account_name"
-        android:layout_width="388dp"
-        android:layout_height="63dp"
-        android:text="Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image"
+        android:text="@string/widget_account_name_placeholder"
         android:textAlignment="center"
-        android:textSize="20sp" />
+        android:textSize="16sp"
+        android:padding="4dp" />
 
     <TextView
         android:id="@+id/account_code"
-        android:layout_width="388dp"
-        android:layout_height="63dp"
-        android:text="Code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/account_name"
+        android:layout_marginTop="4dp"
+        android:text="@string/widget_account_code_placeholder"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:translationY="70dp" />
+        android:textStyle="bold"
+        android:padding="4dp" />
 
 </RelativeLayout>

@@ -15,9 +15,10 @@ import "package:lechacals_authenticator/widgets/customs/modal_bottom_sheet.dart"
 const String appGroupId = "com.lechacals.authenticator";
 const String androidWidgetName = "LeChacalsAuthenticatorWidget";
 
-void updateWidget(Account account, String code) {
+void _updateWidget(Account account, String code, String path) {
   HomeWidget.saveWidgetData<String>("account_name", account.name);
   HomeWidget.saveWidgetData<String>("account_code", code);
+  HomeWidget.saveWidgetData<String>("screenshot", path);
 
   HomeWidget.updateWidget(androidName: androidWidgetName);
 }
@@ -37,21 +38,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool isEditing = false;
 
+  final GlobalKey _globalKey = GlobalKey();
+  String? imagePath;
+
   @override
   void initState() {
     super.initState();
 
-    _loadAccounts();
-    _startTimer();
-
     HomeWidget.setAppGroupId(appGroupId);
 
-    if (accounts.firstOrNull != null) {
-      final account = accounts.first;
-      final code = OTPService.generateTOTP(account.secret);
-
-      updateWidget(account, code);
-    }
+    _loadAccounts();
+    _startTimer();
   }
 
   @override
@@ -273,6 +270,47 @@ class _HomeScreenState extends State<HomeScreen> {
 
         // buttons
         children: [
+          // image button
+          ActionButton(
+            params: ActionButtonParams(
+              onPressed: () async {
+                final account = accounts.first;
+                final code = OTPService.generateTOTP(account.secret);
+
+                if (_globalKey.currentContext != null) {
+                  var path = await HomeWidget.renderFlutterWidget(
+                    // item
+                    AccountListItem(
+                      account: account,
+                      code: code,
+                      remainingSeconds: remainingSeconds,
+                      onTap: () {},
+                    ),
+
+                    // others
+                    key: "screenshot",
+                    logicalSize: _globalKey.currentContext!.size!,
+                    pixelRatio: MediaQuery.of(
+                      _globalKey.currentContext!,
+                    ).devicePixelRatio,
+                  );
+
+                  // set state
+                  setState(() {
+                    imagePath = path as String?;
+                  });
+                }
+
+                // update
+                _updateWidget(account, code, imagePath!);
+              },
+
+              // icon color
+              icon: Icons.image,
+              color: Colors.red,
+            ),
+          ),
+
           // edit button
           ActionButton(
             params: ActionButtonParams(
@@ -343,7 +381,7 @@ class _HomeScreenState extends State<HomeScreen> {
         final code = OTPService.generateTOTP(account.secret);
 
         return Dismissible(
-          key: ValueKey(account.id),
+          key: index == 0 ? _globalKey : ValueKey(account.id),
 
           // direction and dismiss
           direction: isEditing ? DismissDirection.startToEnd : DismissDirection.none,

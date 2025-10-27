@@ -3,8 +3,11 @@ package com.example.lechacals_authenticator
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.widget.RemoteViews
 import es.antonborri.home_widget.HomeWidgetPlugin
+import java.io.File
 
 /**
  * Implementation of App Widget functionality.
@@ -37,11 +40,28 @@ internal fun updateAppWidget(
 ) {
     val widgetData = HomeWidgetPlugin.getData(context)
     val views = RemoteViews(context.packageName, R.layout.le_chacals_authenticator_widget).apply {
-        val name = widgetData.getString("name", null)
+        val name = widgetData.getString("account_name", null)
         setTextViewText(R.id.account_name, name ?: "No name")
 
-        val code = widgetData.getString("code", null)
+        val code = widgetData.getString("account_code", null)
         setTextViewText(R.id.account_code, code ?: "No code")
+
+        val imageName = widgetData.getString("screenshot", null)
+
+        if (imageName != null) {
+            val imageFile = File(imageName)
+
+            if (imageFile.exists()) {
+                val myBitmap: Bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
+                setImageViewBitmap(R.id.image, myBitmap)
+            } else {
+                println("[log] Image not found!, looked @: $imageName")
+                setImageViewResource(R.id.image, android.R.drawable.ic_dialog_info)
+            }
+        } else {
+            println("[log] No screenshot saved yet")
+            setImageViewResource(R.id.image, android.R.drawable.ic_dialog_info)
+        }
     }
 
     appWidgetManager.updateAppWidget(appWidgetId, views)

@@ -1,6 +1,8 @@
 import "package:otp/otp.dart";
 
 class OTPService {
+  OTPService._();
+
   static String generateTOTP(
     String secret, {
     int length = 6,
