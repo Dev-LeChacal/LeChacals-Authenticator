@@ -40,12 +40,6 @@ internal fun updateAppWidget(
 ) {
     val widgetData = HomeWidgetPlugin.getData(context)
     val views = RemoteViews(context.packageName, R.layout.le_chacals_authenticator_widget).apply {
-        val name = widgetData.getString("account_name", null)
-        setTextViewText(R.id.account_name, name ?: "No name")
-
-        val code = widgetData.getString("account_code", null)
-        setTextViewText(R.id.account_code, code ?: "No code")
-
         val imageName = widgetData.getString("screenshot", null)
 
         if (imageName != null) {

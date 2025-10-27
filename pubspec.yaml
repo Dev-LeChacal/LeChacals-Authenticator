@@ -1,7 +1,7 @@
 name: lechacals_authenticator
-description: "A secure, open-source two-factor authentication app built from scratch"
+description: ""
 publish_to: 'none'
-version: 1.0.3+1
+version: 1.0.4+1
 
 environment:
   sdk: ^3.9.0
