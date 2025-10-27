@@ -1,11 +1,8 @@
 package com.example.lechacals_authenticator
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
-import android.content.Intent
 import android.graphics.BitmapFactory
 import android.widget.RemoteViews
 
@@ -15,45 +12,6 @@ class LeChacalsAuthenticatorWidget : AppWidgetProvider() {
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
-        scheduleUpdates(context)
-    }
-
-    override fun onEnabled(context: Context) {
-        super.onEnabled(context)
-        scheduleUpdates(context)
-    }
-
-    override fun onDisabled(context: Context) {
-        super.onDisabled(context)
-        cancelUpdates(context)
-    }
-
-    private fun scheduleUpdates(context: Context) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, LeChacalsAuthenticatorWidget::class.java)
-        intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-
-        val pendingIntent = PendingIntent.getBroadcast(
-            context, 0, intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        alarmManager.setInexactRepeating(
-            AlarmManager.RTC,
-            System.currentTimeMillis(),
-            60000,
-            pendingIntent
-        )
-    }
-
-    private fun cancelUpdates(context: Context) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, LeChacalsAuthenticatorWidget::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(
-            context, 0, intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-        alarmManager.cancel(pendingIntent)
     }
 
     companion object {

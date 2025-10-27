@@ -3,7 +3,7 @@ import "package:flutter/services.dart";
 import "package:lechacals_authenticator/data/models/account.dart";
 import "package:lechacals_authenticator/routes/routes.dart";
 import "package:lechacals_authenticator/screens/edit_account.dart";
-import "package:lechacals_authenticator/screens/home.dart";
+import "package:lechacals_authenticator/screens/home/home.dart";
 import "package:lechacals_authenticator/screens/manual_entry.dart";
 import "package:lechacals_authenticator/screens/qr_scanner_screen.dart";
 import "package:lechacals_authenticator/themes/app_colors.dart";
