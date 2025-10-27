@@ -14,8 +14,18 @@ Only work when app opened.
 Here some screenshots:
 
 <p align="center">
-  <img src="screenshots/home_screen.png" alt="Home Screen" width="200"/>
-  <img src="screenshots/add_account.png" alt="Add Account" width="200"/>
-  <img src="screenshots/qr_scanner.png" alt="QR Code Scanner" width="200"/>
-  <img src="screenshots/manual_entry.png" alt="Manual Entry" width="200"/>
+  <img src="screenshots/home_screen.png" alt="Home Screen" width="250"/>
+</p>
+
+<p align="center">
+  <img src="screenshots/add_options.png" alt="Home Screen" width="250"/>
+  <img src="screenshots/manual_entry.png" alt="Home Screen" width="250"/>
+  <img src="screenshots/qr_scanner.png" alt="Home Screen" width="250"/>
+</p>
+
+<p align="center">
+  <img src="screenshots/edit_mode.png" alt="Home Screen" width="250"/>
+  <img src="screenshots/edit_account.png" alt="Home Screen" width="250"/>
+  <img src="screenshots/delete_swipe.png" alt="Home Screen" width="250"/>
+  <img src="screenshots/delete_dialog.png" alt="Home Screen" width="250"/>
 </p>
