@@ -45,13 +45,9 @@ class QRScannerScreen extends StatelessWidget {
 
   Widget _buildScannerOverlay(double size) {
     return Center(
-      child: Container(
+      child: SizedBox(
         width: size,
         height: size,
-        decoration: BoxDecoration(
-          // border: Border.all(color: Colors.white, width: 3),
-          borderRadius: BorderRadius.circular(12),
-        ),
 
         // child
         child: Stack(

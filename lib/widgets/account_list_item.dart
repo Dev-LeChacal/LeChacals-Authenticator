@@ -28,9 +28,9 @@ class AccountListItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
 
       // color
+      color: const Color.fromARGB(255, 28, 32, 44),
 
       // deco
-      color: const Color.fromARGB(255, 28, 32, 44),
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
 
