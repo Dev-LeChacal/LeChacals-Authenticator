@@ -13,6 +13,7 @@ class AccountReorderableList extends StatelessWidget {
   final Function(int, int) onReorder;
   final Function(Account) onEditAccount;
   final Function(String) onCopyCode;
+  final Function(DismissDirection, int) onDismissed;
 
   const AccountReorderableList({
     super.key,
@@ -23,6 +24,7 @@ class AccountReorderableList extends StatelessWidget {
     required this.onReorder,
     required this.onEditAccount,
     required this.onCopyCode,
+    required this.onDismissed,
   });
 
   @override
@@ -49,6 +51,9 @@ class AccountReorderableList extends StatelessWidget {
 
           // direction
           direction: isEditing ? DismissDirection.startToEnd : DismissDirection.none,
+
+          // dismiss
+          onDismissed: (direction) => onDismissed(direction, index),
           confirmDismiss: (direction) async {
             return await DeleteAccountDialog.show(context, account);
           },

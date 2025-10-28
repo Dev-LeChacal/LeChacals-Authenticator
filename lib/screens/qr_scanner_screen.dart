@@ -1,3 +1,5 @@
+import "dart:developer";
+
 import "package:flutter/material.dart";
 import "package:lechacals_authenticator/data/models/account.dart";
 import "package:lechacals_authenticator/widgets/customs/action_button.dart";
@@ -154,6 +156,8 @@ class QRScannerScreen extends StatelessWidget {
     final String? code = barcode.rawValue;
 
     if (code != null && code.startsWith("otpauth://")) {
+      log(code);
+
       final uri = Uri.parse(code);
 
       final label = uri.path.substring(1);

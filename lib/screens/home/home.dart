@@ -146,6 +146,11 @@ class _HomeScreenState extends State<HomeScreen> {
               onReorder: _onReorder,
               onEditAccount: _editAccount,
               onCopyCode: _copyCode,
+              onDismissed: (direction, index) {
+                setState(() {
+                  accounts.removeAt(index);
+                });
+              },
             ),
       floatingActionButton: HomeFloatingButtons(
         isEditing: isEditing,
