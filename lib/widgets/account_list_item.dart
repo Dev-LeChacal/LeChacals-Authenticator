@@ -5,6 +5,7 @@ import "package:lechacals_authenticator/themes/app_colors.dart";
 class AccountListItem extends StatelessWidget {
   final Account account;
   final String code;
+  final String nextCode;
   final int remainingSeconds;
   final VoidCallback onTap;
 
@@ -12,6 +13,7 @@ class AccountListItem extends StatelessWidget {
     super.key,
     required this.account,
     required this.code,
+    required this.nextCode,
     required this.remainingSeconds,
     required this.onTap,
   });
@@ -19,22 +21,30 @@ class AccountListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formattedCode = "${code.substring(0, 3)} ${code.substring(3)}";
+    final formattedNextCode = "${nextCode.substring(0, 3)} ${nextCode.substring(3)}";
 
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      // margin
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+
+      // color
+
+      // deco
       color: const Color.fromARGB(255, 28, 32, 44),
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+
+      // child
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(12),
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildAccountInfo(formattedCode),
-              const SizedBox(height: 12),
+              _buildAccountInfo(formattedCode, formattedNextCode),
+              const SizedBox(height: 10),
               _buildProgressBar(),
             ],
           ),
@@ -43,7 +53,7 @@ class AccountListItem extends StatelessWidget {
     );
   }
 
-  Widget _buildAccountInfo(String formattedCode) {
+  Widget _buildAccountInfo(String formattedCode, String formattedNextCode) {
     return Row(
       // alignments
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,14 +85,12 @@ class AccountListItem extends StatelessWidget {
               // spacing
               const SizedBox(height: 4),
 
-              // code
               Text(
                 formattedCode,
                 style: const TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w600,
                   color: AppColors.primaryColor,
-                  letterSpacing: 2,
                 ),
               ),
             ],
@@ -90,25 +98,57 @@ class AccountListItem extends StatelessWidget {
         ),
 
         // time
-        Container(
-          // padding
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
 
-          // decoration
-          decoration: BoxDecoration(
-            color: Colors.white.withAlpha(33),
-            borderRadius: BorderRadius.circular(8),
-          ),
+          // children
+          children: [
+            // remaining seconds
+            Container(
+              // padding
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
 
-          // text
-          child: Text(
-            "${remainingSeconds}s",
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.white70,
+              // size
+              width: 55,
+
+              // decoration
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(33),
+                borderRadius: BorderRadius.circular(8),
+              ),
+
+              // text
+              child: Text(
+                "${remainingSeconds}s",
+
+                // align
+                textAlign: TextAlign.end,
+
+                // style
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white70,
+                ),
+              ),
             ),
-          ),
+
+            // spacing
+            const SizedBox(height: 16),
+
+            // next code
+            Text(
+              "Next: $formattedNextCode",
+
+              // style
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: Colors.white70,
+              ),
+            ),
+          ],
         ),
       ],
     );

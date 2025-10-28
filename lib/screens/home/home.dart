@@ -60,12 +60,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final account = accounts.first;
     final code = OTPService.generateTOTP(account.secret);
+    final nextCode = OTPService.generateNextTOTP(account.secret);
     final context = _globalKey.currentContext!;
 
     var path = await HomeWidget.renderFlutterWidget(
       AccountListItem(
         account: account,
         code: code,
+        nextCode: nextCode,
         remainingSeconds: _timerManager.remainingSeconds,
         onTap: () {},
       ),

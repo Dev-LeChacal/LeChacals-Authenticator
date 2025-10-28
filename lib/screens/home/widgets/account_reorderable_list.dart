@@ -41,6 +41,7 @@ class AccountReorderableList extends StatelessWidget {
       itemBuilder: (context, index) {
         final account = accounts[index];
         final code = OTPService.generateTOTP(account.secret);
+        final nextCode = OTPService.generateNextTOTP(account.secret);
 
         return Dismissible(
           // key
@@ -60,6 +61,7 @@ class AccountReorderableList extends StatelessWidget {
             key: ValueKey(account.id),
             account: account,
             code: code,
+            nextCode: nextCode,
             remainingSeconds: remainingSeconds,
             onTap: () => isEditing ? onEditAccount(account) : onCopyCode(code),
           ),

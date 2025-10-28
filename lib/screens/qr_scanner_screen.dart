@@ -49,8 +49,105 @@ class QRScannerScreen extends StatelessWidget {
         width: size,
         height: size,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.white, width: 3),
+          // border: Border.all(color: Colors.white, width: 3),
           borderRadius: BorderRadius.circular(12),
+        ),
+
+        // child
+        child: Stack(
+          children: [
+            // top left
+            Positioned(
+              // position
+              top: 0,
+              left: 0,
+
+              // child
+              child: Container(
+                // size
+                width: 30,
+                height: 30,
+
+                // decoration
+                decoration: const BoxDecoration(
+                  border: Border(
+                    top: BorderSide(color: Colors.white, width: 5),
+                    left: BorderSide(color: Colors.white, width: 5),
+                  ),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
+                ),
+              ),
+            ),
+
+            // top right
+            Positioned(
+              // position
+              top: 0,
+              right: 0,
+
+              // child
+              child: Container(
+                // size
+                width: 30,
+                height: 30,
+
+                // decoration
+                decoration: const BoxDecoration(
+                  border: Border(
+                    top: BorderSide(color: Colors.white, width: 5),
+                    right: BorderSide(color: Colors.white, width: 5),
+                  ),
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(12)),
+                ),
+              ),
+            ),
+
+            // bottom left
+            Positioned(
+              // position
+              bottom: 0,
+              left: 0,
+
+              // child
+              child: Container(
+                // size
+                width: 30,
+                height: 30,
+
+                // decoration
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: Colors.white, width: 5),
+                    left: BorderSide(color: Colors.white, width: 5),
+                  ),
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12)),
+                ),
+              ),
+            ),
+
+            // bottom right
+            Positioned(
+              // position
+              bottom: 0,
+              right: 0,
+
+              // child
+              child: Container(
+                // size
+                width: 30,
+                height: 30,
+
+                // decoration
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: Colors.white, width: 5),
+                    right: BorderSide(color: Colors.white, width: 5),
+                  ),
+                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
